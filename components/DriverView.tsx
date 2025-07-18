@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { DriverStatus, Trip, User, Vehicle, VehicleType, TripStatus, PaymentMethod } from '../types';
 import { Card, Button, Avatar, StarIcon } from './ui';
 import { db } from '../database';
+import { formatCurrency, formatRating } from '../utils';
 
 const mockVehicle: Vehicle = {
     make: 'Honda',
@@ -43,11 +44,11 @@ const RideRequest: React.FC<{ rider: User, trip: Trip, onAccept: () => void, onD
                 <p className="font-bold text-lg">{rider.name}</p>
                 <div className="flex items-center">
                     <StarIcon/>
-                    <span className="ml-1 font-semibold">{rider.rating.toFixed(1)}</span>
+                    <span className="ml-1 font-semibold">{formatRating(rider.rating)}</span>
                 </div>
             </div>
             <div className="ml-auto text-right">
-                <p className="font-bold text-xl text-green-400">${trip.fare.toFixed(2)}</p>
+                <p className="font-bold text-xl text-green-400">{formatCurrency(trip.fare)}</p>
                 <p className="text-gray-400 text-sm">Est. Fare</p>
             </div>
         </div>
@@ -72,7 +73,7 @@ const RiderInfo: React.FC<{ trip: Trip, rider: User | null, onAction: () => void
                     <p className="font-bold text-xl">{rider.name}</p>
                      <div className="flex items-center">
                         <StarIcon />
-                        <span className="ml-1 font-semibold">{rider.rating.toFixed(1)}</span>
+                         <span className="ml-1 font-semibold">{formatRating(rider.rating)}</span>
                     </div>
                 </div>
             </div>
@@ -89,7 +90,7 @@ const CashConfirmation: React.FC<{ trip: Trip, onConfirm: () => void }> = ({ tri
     <Card className="w-full max-w-sm text-center animate-fade-in-up">
         <h2 className="text-2xl font-bold">Confirm Payment</h2>
         <p className="text-gray-400 my-4">Did you receive cash payment of</p>
-        <p className="text-4xl font-extrabold text-green-400 my-4">${trip.fare.toFixed(2)}?</p>
+        <p className="text-4xl font-extrabold text-green-400 my-4">{formatCurrency(trip.fare)}?</p>
         <Button onClick={onConfirm} className="w-full text-lg">Confirm Cash Received</Button>
     </Card>
 );
