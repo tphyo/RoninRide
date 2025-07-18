@@ -4,6 +4,7 @@ import { RiderStatus, VehicleType, Trip, User, PaymentMethod, TripStatus } from 
 import { Card, Button, Avatar, StarIcon, CarIcon } from './ui';
 import { PaymentModal } from './PaymentModal';
 import { db } from '../database';
+import { formatRating } from '../utils';
 
 // --- Sub-components for different rider states ---
 
@@ -100,7 +101,7 @@ const DriverInfo: React.FC<{ trip: Trip, statusText: string }> = ({ trip, status
                     <p className="font-bold text-xl">{driver.name}</p>
                     <div className="flex items-center">
                         <StarIcon />
-                        <span className="ml-1 font-semibold">{driver.rating.toFixed(1)}</span>
+                        <span className="ml-1 font-semibold">{formatRating(driver.rating)}</span>
                     </div>
                 </div>
                 <div className="ml-auto text-right">

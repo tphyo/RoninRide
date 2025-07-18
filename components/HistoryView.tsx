@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Trip, TripStatus } from '../types';
 import { db } from '../database';
 import { Card, Button, StarIcon } from './ui';
+import { formatCurrency, formatDate, formatTime, formatRating } from '../utils';
 
 interface HistoryViewProps {
     userId: string;
@@ -10,8 +11,8 @@ interface HistoryViewProps {
 }
 
 const TripHistoryCard: React.FC<{ trip: Trip }> = ({ trip }) => {
-    const tripDate = new Date(trip.createdAt).toLocaleDateString();
-    const tripTime = new Date(trip.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const tripDate = formatDate(trip.createdAt);
+    const tripTime = formatTime(trip.createdAt);
 
     const statusColor = {
         [TripStatus.COMPLETED]: 'text-green-400',
@@ -29,12 +30,12 @@ const TripHistoryCard: React.FC<{ trip: Trip }> = ({ trip }) => {
                         <div className="flex items-center mt-2">
                            <p className="text-sm text-gray-300">Driver: {trip.driver.name}</p>
                            <StarIcon className="ml-2 w-4 h-4" /> 
-                           <span className="ml-1 text-sm">{trip.driver.rating}</span>
+                           <span className="ml-1 text-sm">{formatRating(trip.driver.rating)}</span>
                         </div>
                     )}
                 </div>
                 <div className="text-right">
-                    <p className="font-extrabold text-xl text-green-400">${trip.fare.toFixed(2)}</p>
+                    <p className="font-extrabold text-xl text-green-400">{formatCurrency(trip.fare)}</p>
                     <p className={`text-sm font-bold ${statusColor[trip.status] || 'text-gray-400'}`}>{trip.status}</p>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Card, Button, CashIcon, CreditCardIcon, PayPalIcon, ApplePayIcon, GooglePayIcon } from './ui';
 import { PaymentMethod, Trip } from '../types';
+import { formatCurrency } from '../utils';
 
 interface PaymentModalProps {
   trip: Trip;
@@ -36,7 +37,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({ trip, onConfirmPayme
         <div className="text-center">
           <h2 className="text-2xl font-bold text-white mb-2">Trip Completed</h2>
           <p className="text-gray-400 mb-1">Your ride from {trip.pickup} to {trip.destination}.</p>
-          <p className="text-4xl font-extrabold text-green-400 my-4">${trip.fare.toFixed(2)}</p>
+          <p className="text-4xl font-extrabold text-green-400 my-4">{formatCurrency(trip.fare)}</p>
         </div>
         
         <div className="space-y-3 my-6">
@@ -62,7 +63,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({ trip, onConfirmPayme
         </div>
         
         <Button onClick={handlePayment} disabled={!selectedMethod || isPaying} className="w-full text-lg">
-          {isPaying ? 'Processing...' : `Pay $${trip.fare.toFixed(2)}`}
+          {isPaying ? 'Processing...' : `Pay ${formatCurrency(trip.fare)}`}
         </Button>
       </Card>
     </div>
