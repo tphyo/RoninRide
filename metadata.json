@@ -1,0 +1,5 @@
+{
+  "name": "RoninRide",
+  "description": "A modern ride-sharing application for both riders and drivers, featuring multiple vehicle types, a dynamic map interface, and a comprehensive payment system including cash, credit card, PayPal, Apple Pay, and Google Pay.",
+  "requestFramePermissions": []
+}
